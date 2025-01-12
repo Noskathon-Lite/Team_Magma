@@ -68,18 +68,13 @@ function determineAnimation(text) {
 
 const getGeminiResponse = async (userMessage) => {
   try {
-    // Validate API key first
-    if (!process.env.GOOGLE_GEN_AI_API_KEY) {
-      throw new Error('Missing API key');
-    }
+    console.log('1. Starting API request with message:', userMessage);
 
     const inputData = {
       contents: [{
         parts: [{ 
           text: `You are a medical assistant. Provide a brief, accurate, and clear response about medical conditions or health queries. Focus on essential information and keep answers concise. Do not provide diagnostic claims or definitive medical advice.
-
 Query: ${userMessage}
-
 Remember:
 - Keep responses under 3-4 sentences
 - Use simple, clear language
@@ -101,31 +96,33 @@ Remember:
       ]
     };
 
+    console.log('2. Making API call...');
+    
     const response = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GOOGLE_GEN_AI_API_KEY}`,
       inputData,
       {
-        timeout: 10000
+        timeout: 10000,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }
     );
 
-    // Log response structure in development
-    if (process.env.NODE_ENV === 'development') {
-      console.log('API Response Structure:', JSON.stringify(response.data, null, 2));
-    }
+    console.log('3. API response received:', {
+      status: response.status,
+      hasData: !!response.data,
+      hasCandidates: !!response.data?.candidates,
+      candidatesLength: response.data?.candidates?.length
+    });
 
-    // Enhanced response validation
-    if (!response.data) {
-      throw new Error('Empty response from API');
-    }
-    if (!response.data.candidates || !response.data.candidates.length) {
-      throw new Error('No candidates in response');
-    }
-    if (!response.data.candidates[0].content?.parts?.[0]?.text) {
-      throw new Error('Invalid response structure: missing text content');
+    if (!response.data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+      console.log('4. Invalid response structure:', JSON.stringify(response.data, null, 2));
+      throw new Error('Invalid response structure from Gemini API');
     }
 
     const text = response.data.candidates[0].content.parts[0].text;
+    console.log('5. Extracted text:', text.substring(0, 50) + '...');
 
     if (text.length > 500) {
       return {
@@ -135,7 +132,6 @@ Remember:
       };
     }
 
-    // Check for medical disclaimers when needed
     if (text.toLowerCase().includes("diagnos") || text.toLowerCase().includes("treatment")) {
       const disclaimer = " Please consult a healthcare professional for proper medical advice.";
       return {
@@ -145,6 +141,7 @@ Remember:
       };
     }
 
+    console.log('6. Returning successful response');
     return {
       text,
       facialExpression: determineExpression(text),
@@ -152,26 +149,18 @@ Remember:
     };
 
   } catch (error) {
-    // Enhanced error handling
     console.error("Detailed Gemini API Error:", {
       message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
+      code: error.code,
+      responseData: error.response?.data,
+      responseStatus: error.response?.status,
       stack: error.stack
     });
 
-    // Return specific error messages based on the error type
-    if (error.message === 'Missing API key') {
-      return {
-        text: "API configuration error. Please check the server configuration.",
-        facialExpression: "sad",
-        animation: "HeadShake"
-      };
-    }
-    
+    // Return user-friendly error based on the type of error
     if (error.response?.status === 401) {
       return {
-        text: "Authentication error. Please verify the API key configuration.",
+        text: "Authentication error. Please check the API configuration.",
         facialExpression: "sad",
         animation: "HeadShake"
       };
@@ -179,14 +168,22 @@ Remember:
 
     if (error.code === 'ECONNABORTED') {
       return {
-        text: "The request timed out. Please try again.",
+        text: "Request timed out. Please try again.",
+        facialExpression: "sad",
+        animation: "HeadShake"
+      };
+    }
+
+    if (error.response?.status === 400) {
+      return {
+        text: "Invalid request format. Please try again with a different question.",
         facialExpression: "sad",
         animation: "HeadShake"
       };
     }
 
     return {
-      text: "I'm having trouble connecting to the medical information service. Please try again in a moment.",
+      text: "I'm having trouble connecting to the service. Please try again in a moment.",
       facialExpression: "sad",
       animation: "HeadShake"
     };
