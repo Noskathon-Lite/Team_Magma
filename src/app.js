@@ -1,6 +1,6 @@
 import cors from "cors"
 import express from "express";
-import {userRoute} from "./routes/userRoutes"
+import {userRoute} from "./routes/userRoutes.js"
 const app=express()
 
 app.use(express.json()); 
@@ -16,7 +16,5 @@ app.use(
   
   // Routes
   app.use("/api/users", userRoute);
-
-  
 
 export {app}
