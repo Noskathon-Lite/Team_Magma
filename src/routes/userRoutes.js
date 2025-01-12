@@ -1,16 +1,13 @@
 import express from "express";
-import {
-  changeCurrentPassword,
-  forgotPassword,
-  resetPassword,
-  loginUser,
-  logoutUser,
-  registerUser,
-  updateUser,
-} from "../controllers/authController.js";
-import { isAuthenticated } from "../middleware/authMiddleware.js"; // Middleware to verify user authentication
+import {changeCurrentPassword} from "../controllers/changePasswordController.js"
+import{forgotPassword} from "../controllers/forgotPasswordController.js"
+import {loginUser} from "../controllers/loginController.js"
+import { logoutUser } from "../controllers/logoutController.js";
+import {registerUser} from "../controllers/signupController.js"
+import { updateUser } from "../controllers/updateProfile.js";
 
-const router = express.Router();
+import { verifyJWT } from "../middleware/jwtAuth.js"; 
+const userRoute = express.Router();
 
 // User Registration
 router.post("/register", registerUser);
@@ -19,10 +16,10 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // User Logout
-router.post("/logout", isAuthenticated, logoutUser);
+router.post("/logout", verifyJWT, logoutUser);
 
 // Change Current Password
-router.put("/change-password", isAuthenticated, changeCurrentPassword);
+router.put("/change-password", verifyJWT, changeCurrentPassword);
 
 // Forgot Password
 router.post("/forgot-password", forgotPassword);
@@ -31,6 +28,6 @@ router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 
 // Update User
-router.put("/update/:id", isAuthenticated, updateUser);
+router.put("/update/:id", verifyJWT, updateUser);
 
-export default router;
+export  {userRoute};
