@@ -3,11 +3,11 @@ import { User } from "../models/userModel.js";
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { firstname, lastname, email, password } = req.body;
+    const { email, password } = req.body;
 
     // Validation
     if (
-      [firstname, lastname, email, password].some(
+      [ email, password].some(
         (field) => field?.trim() === ""
       )
     ) {
@@ -27,8 +27,7 @@ const updateUser = async (req, res) => {
     }
 
     // Update user information
-    user.firstname = firstname;
-    user.lastname = lastname;
+    
     user.email = email;
     if (password) {
       user.password = password; // Assuming password hashing middleware is in place
