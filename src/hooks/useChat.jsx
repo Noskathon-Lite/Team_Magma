@@ -55,6 +55,7 @@ export const ChatProvider = ({ children }) => {
         },
         data: { message: userMessage },
       });
+      // console.log(response.data);
 
       const newMessages = response.data.messages;
       
