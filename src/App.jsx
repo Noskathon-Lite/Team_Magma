@@ -1,22 +1,18 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./Component/Login/login"; // Adjust the path as needed
+import SignupPage from "./Component/Signuppage";// Adjust the path as needed
 
-import LoginPage from './Component/Login/login'
-import './index.css'
-import { React } from 'react';
-
-
-function App() {
-  
-
+const App = () => {
   return (
-    <>
-   <LoginPage/>
-   {/* <div className='font-bold text-3xl'>React</div>
-   <h1 className="text-3xl flex items-center  font-bold underline">
-      Hello world!
-    </h1> */}
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
+  );
+};
 
-    </>
-  )
-}
-
-export default App
+export default App;
