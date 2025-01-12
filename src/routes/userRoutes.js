@@ -24,9 +24,6 @@ userRoute.put("/change-password", verifyJWT, changeCurrentPassword);
 // Forgot Password
 userRoute.post("/forgot-password", forgotPassword);
 
-// Reset Password
-userRoute.post("/reset-password", resetPassword);
-
 // Update User
 userRoute.put("/update/:id", verifyJWT, updateUser);
 
