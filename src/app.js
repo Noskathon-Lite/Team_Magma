@@ -81,9 +81,7 @@ const getGeminiResponse = async (userMessage) => {
       inputData,
       {
         timeout: 10000 // 10 second timeout
-      }
-
-      
+      }  
       
     );
 
