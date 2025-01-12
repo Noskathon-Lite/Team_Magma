@@ -82,13 +82,20 @@ const getGeminiResponse = async (userMessage) => {
       {
         timeout: 10000 // 10 second timeout
       }
+
+      
+      
     );
+
+
+    
 
     if (!response.data?.candidates?.[0]?.content?.parts?.[0]?.text) {
       throw new Error('Invalid response structure from Gemini API');
     }
 
     const text = response.data.candidates[0].content.parts[0].text;
+    console.log(text);
     
     return {
       text,
