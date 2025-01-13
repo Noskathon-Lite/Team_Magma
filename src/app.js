@@ -175,6 +175,8 @@ Remember:
 - Use simple, clear language
 - Focus on factual medical information
 - Include appropriate medical disclaimers when needed`,
+
+// aghiko doctor list, also tell mee the specialist i need to consult based on the doctor list provided
             },
           ],
         },
