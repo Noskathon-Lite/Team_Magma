@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
+
 // Get backend URL from environment variable with fallback
 const BACKEND_URL =  "http://localhost:3000";
 
@@ -55,7 +56,8 @@ const setupSpeech = (text, onEnd) => {
         },
         data: { message: userMessage },
       });
-      // console.log(response.data);
+      console.log(response.data);
+      
 
       const newMessages = response.data.messages;
       
@@ -111,6 +113,7 @@ const setupSpeech = (text, onEnd) => {
         chat,
         message,
         messages,
+        
         onMessagePlayed,
         loading,
         error,
