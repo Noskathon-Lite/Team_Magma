@@ -22,3 +22,33 @@ body.greenScreen {
   background-color: #00ff00;
   background-image: none;
 }
+
+.two-container{
+  width: 9vw;
+  margin-right: 3.5rem;
+}
+
+.TextAreaContainer{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  position: relative;
+}
+
+.textArea{
+  width: 28vw;
+  height: 70vh;
+  /* border: 2px solid black; */
+  border-radius: 20px;
+  right: 0%;
+  background-color: rgba(239, 233, 233, 0.5);
+  z-index: 999;
+  position: absolute;
+}
+
+.textArea h1{
+  padding: 20px;
+  /* font: bolder; */
+  font-weight: bolder;
+font-size: medium;
+}
