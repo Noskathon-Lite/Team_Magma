@@ -90,7 +90,15 @@ Remember:
       },
       safetySettings: [
         {
-          category: "HARM_CATEGORY_MEDICAL",
+          category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+          threshold: "BLOCK_MEDIUM_AND_ABOVE"
+        },
+        {
+          category: "HARM_CATEGORY_HATE_SPEECH",
+          threshold: "BLOCK_MEDIUM_AND_ABOVE"
+        },
+        {
+          category: "HARM_CATEGORY_HARASSMENT",
           threshold: "BLOCK_MEDIUM_AND_ABOVE"
         }
       ]
@@ -157,7 +165,6 @@ Remember:
       stack: error.stack
     });
 
-    // Return user-friendly error based on the type of error
     if (error.response?.status === 401) {
       return {
         text: "Authentication error. Please check the API configuration.",
@@ -176,7 +183,7 @@ Remember:
 
     if (error.response?.status === 400) {
       return {
-        text: "Invalid request format. Please try again with a different question.",
+        text: "Let me try to understand your question better. Could you rephrase it?",
         facialExpression: "sad",
         animation: "HeadShake"
       };
