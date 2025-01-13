@@ -174,7 +174,9 @@ Remember:
 - Keep responses under 3-4 sentences
 - Use simple, clear language
 - Focus on factual medical information
-- Include appropriate medical disclaimers when needed`,
+- Include appropriate medical disclaimers when needed
+- Suggest some home remedies also`,
+
 
 // aghiko doctor list, also tell mee the specialist i need to consult based on the doctor list provided
             },
