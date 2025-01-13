@@ -16,7 +16,7 @@ const setupSpeech = (text, onEnd) => {
   return utterance;
 };
 
-export const ChatProvider = ({ children }) => {
+ const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
