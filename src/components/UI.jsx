@@ -8,7 +8,7 @@ export const UI = ({ hidden }) => {
 
   const sendMessage = () => {
     const text = input.current.value;
-    if (!loading && !message) {
+    if (!loading && text) {
       chat(text);
       input.current.value = "";
     }
@@ -99,7 +99,7 @@ export const UI = ({ hidden }) => {
             }}
           />
           <button
-            disabled={loading || message}
+            disabled={loading }
             onClick={sendMessage}
             className={`bg-pink-500 hover:bg-pink-600 text-white p-4 px-10 font-semibold uppercase rounded-md ${
               loading || message ? "cursor-not-allowed opacity-30" : ""
