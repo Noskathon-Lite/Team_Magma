@@ -7,7 +7,7 @@ dotenv.config({
 })
 
 
-const doctors = [
+export const doctors = [
     {
       SNo: 1,
       FullName: "Dr. Uday Chandra Chaudhary",
@@ -560,21 +560,21 @@ const doctors = [
     }
   ];
 
- 
-  const dbURI =  "mongodb+srv://babita:ahcaFYq8xGgEyFRl@cluster0.yehg64m.mongodb.net/test";
+  
+//   const dbURI =  "mongodb+srv://babita:ahcaFYq8xGgEyFRl@cluster0.yehg64m.mongodb.net/test";
 
-mongoose.connect(dbURI)
-  .then(() => {
-    console.log("Database connected!");
-    // Insert multiple doctors using insertMany
-    Doctor.insertMany(doctors)
-      .then((savedDoctors) => {
-        console.log('Doctors saved successfully:', savedDoctors);
-      })
-      .catch((err) => {
-        console.error('Error saving doctors:', err);
-      });
-  })
-  .catch((err) => {
-    console.error('Error connecting to database:', err);
-  });
+// mongoose.connect(dbURI)
+//   .then(() => {
+//     console.log("Database connected!");
+//     // Insert multiple doctors using insertMany
+//     Doctor.insertMany(doctors)
+//       .then((savedDoctors) => {
+//         console.log('Doctors saved successfully:', savedDoctors);
+//       })
+//       .catch((err) => {
+//         console.error('Error saving doctors:', err);
+//       });
+//   })
+//   .catch((err) => {
+//     console.error('Error connecting to database:', err);
+//   });
