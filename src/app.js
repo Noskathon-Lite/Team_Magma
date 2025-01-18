@@ -171,7 +171,7 @@ const getGeminiResponse = async (userMessage) => {
               text: `You are a medical assistant. Provide a brief, accurate, and clear response about medical conditions or health queries. Focus on essential information and keep answers concise. Do not provide diagnostic claims or definitive medical advice.
 Query: ${userMessage}
 Remember:
-- Keep responses under 2-3 sentences
+- Keep responses under 1 sentences
 - Use simple, clear language
 - Focus on factual medical information
 - Include appropriate medical disclaimers when needed
@@ -268,7 +268,7 @@ Remember:
         });
       } else {
         finalResponse +=
-          "\n\nUnfortunately, no matching doctors were found in our database.";
+          " ";
       }
     } else {
       finalResponse +=

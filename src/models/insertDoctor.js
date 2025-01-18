@@ -561,7 +561,7 @@ export const doctors = [
   ];
 
   
-//   const dbURI =  "mongodb+srv://babita:ahcaFYq8xGgEyFRl@cluster0.yehg64m.mongodb.net/test";
+//   const dbURI =  "url/test";
 
 // mongoose.connect(dbURI)
 //   .then(() => {
